@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+</head>
+<body>
+    
+    <button onclick="getMyData()" >Get Data</button>
+    <h1 id="data"></h1>
+    <p id="productName"></p>
+    <p id="price"></p>
+
+
+    <script>
+         async function getMyData(){
+            let url="https://crud.teamrabbil.com/api/v1/ReadProduct";
+            
+           let res=await fetch(url);
+           let resObj=await res.json();
+          //document.getElementById("data").innerText=JSON.stringify(resObj ['data']);
+         let resDataArray= resObj['data'];
+         resDataArray.forEach(function(item){
+            let pName=item['ProductName'];
+            document.write(pName+"<br>");
+            let pPrice=item['UnitPrice'];
+            document.write(pPrice+"<br>");
+            //document.getElementById("productName").innerText=pName;
+
+         })
+        
+    }
+        
+    </script>
+</body>
+</html>
