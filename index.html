@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajax</title>
+    <title>Product Data</title>
 </head>
 <body>
-    
-    <button onclick="getMyData()" >Get Data</button>
-    <h1 id="data"></h1>
-    <p id="productName"></p>
-    <p id="price"></p>
 
+    <button onclick="getMyData()">Get Data</button>
+    <div id="productData"></div>
 
     <script>
-         async function getMyData(){
-            let url="https://crud.teamrabbil.com/api/v1/ReadProduct";
-            
-           let res=await fetch(url);
-           let resObj=await res.json();
-          //document.getElementById("data").innerText=JSON.stringify(resObj ['data']);
-         let resDataArray= resObj['data'];
-         resDataArray.forEach(function(item){
-            let pName=item['ProductName'];
-            document.write(pName+"<br>");
-            let pPrice=item['UnitPrice'];
-            document.write(pPrice+"<br>");
-            //document.getElementById("productName").innerText=pName;
+        async function getMyData() {
+            try {
+                let url = "https://crud.teamrabbil.com/api/v1/ReadProduct";
+                let res = await fetch(url);
+                let resObj = await res.json();
+                let resDataArray = resObj['data'];
+                let productDataContainer = document.getElementById("productData");
 
-         })
-        
-    }
-        
+                resDataArray.forEach(function(item) {
+                    let pName = item['ProductName'];
+                    let pPrice = item['UnitPrice'];
+
+                    // Display data on the webpage
+                    productDataContainer.innerHTML += `<p>Product Name: ${pName}</p>`;
+                    productDataContainer.innerHTML += `<p>Product Price: ${pPrice}</p>`;
+                });
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
     </script>
+
 </body>
 </html>
